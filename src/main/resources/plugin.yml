@@ -1,0 +1,11 @@
+name: ShadowBan
+description: A plugin that allows you to shadow ban people (banning with an network error message)
+version: 0.1.0
+main: io.github.weredime.shadowban.ShadowBanPlugin
+api-version: '1.18'
+author: Weredime, original by DogLoverPink
+commands:
+  shadowBan:
+    description: Shadow-bans a player.
+    usage: /shadowban <ban|pardon|list> <target>
+    aliases: [sban]
