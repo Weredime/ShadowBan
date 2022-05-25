@@ -14,6 +14,8 @@
  */
 package io.github.weredime.shadowban;
 
+import java.util.HashMap;
+
 public class ShadowBanMessages {
     public static String CONNECTION_REFUSED = "Connection refused: no further information";
     public static String UNKNOWN_HOST = "Unknown host";
@@ -22,4 +24,17 @@ public class ShadowBanMessages {
     public static String CONNECTION_RESET = "java.net.SocketException: Connection reset";
     public static String OUTDATED_CLIENT = "Outdated client!";
     public static String INVALID_SERVER_KEY = "This server responded with an invalid server key";
+    public static String[] KEYS = {"CONNECTION_REFUSED", "UNKNOWN_HOST", "OUTDATED_SERVER", "BAD_LOGIN", "CONNECTION_RESET", "OUTDATED_CLIENT", "INVALID_SERVER_KEY"};
+    public static HashMap<String, String> getMessages() {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("CONNECTION_REFUSED", CONNECTION_RESET);
+        map.put("UNKNOWN_HOST", UNKNOWN_HOST);
+        map.put("OUTDATED_SERVER", OUTDATED_SERVER);
+        map.put("BAD_LOGIN", BAD_LOGIN);
+        map.put("CONNECTION_REFUSED", CONNECTION_REFUSED);
+        map.put("OUTDATED_CLIENT", OUTDATED_CLIENT);
+        map.put("INVALID_SERVER_KEY", INVALID_SERVER_KEY);
+
+        return map;
+    }
 }

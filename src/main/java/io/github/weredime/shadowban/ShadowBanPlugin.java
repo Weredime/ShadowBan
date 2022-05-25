@@ -18,7 +18,6 @@ import io.github.weredime.shadowban.listener.PlayerJoinedListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 public class ShadowBanPlugin extends JavaPlugin {
@@ -40,5 +39,6 @@ public class ShadowBanPlugin extends JavaPlugin {
 
         // Register commands
         getCommand("shadowban").setExecutor(new ShadowBanCommand());
+        getCommand("shadowban").setTabCompleter(new ShadowBanTabCompleter());
     }
 }

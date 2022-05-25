@@ -23,37 +23,31 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class ShadowBanTabCompleter implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         List<String> list = new ArrayList<>();
 
-        if (cmd.getName().equalsIgnoreCase("shadowban")) {
-            if (args.length == 0) {
+        if (cmd.getName().equalsIgnoreCase("shadowban") || cmd.getName().equalsIgnoreCase("sban")) {
+            if (args.length == 0 || (args.length == 1 && args[0] == "")) {
                 for (String arg : ShadowBanCommand.ALLOWED_ARGUMENTS) {
                     list.add(arg);
                 }
                 Collections.sort(list);
 
-            } else if (args.length == 1) {
+            } else if (args.length == 1 || (args.length == 2 && args[1] == "")) {
                 String usage = args[0].toLowerCase();
                 if (usage.equals("ban") || usage.equals("add") || usage.equals("unban") || usage.equals("pardon")) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         list.add(player.getName());
                     }
                 } else if (usage.equals("setmessage") || usage.equals("setmsg")) {
-                    list.add(ShadowBanMessages.CONNECTION_RESET);
-                    list.add(ShadowBanMessages.BAD_LOGIN);
-                    list.add(ShadowBanMessages.CONNECTION_REFUSED);
-                    list.add(ShadowBanMessages.INVALID_SERVER_KEY);
-                    list.add(ShadowBanMessages.OUTDATED_CLIENT);
-                    list.add(ShadowBanMessages.OUTDATED_SERVER);
-                    list.add(ShadowBanMessages.UNKNOWN_HOST);
+                    for (Object str : ShadowBanMessages.getMessages().keySet().toArray()) {
+                        list.add(str.toString() + " (" + ShadowBanMessages.getMessages().get(str.toString()) + ")");
+                    }
                 }
             }
         }
-
         return list;
     }
 }

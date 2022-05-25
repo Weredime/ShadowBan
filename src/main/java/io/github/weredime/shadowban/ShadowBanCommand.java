@@ -83,7 +83,7 @@ public class ShadowBanCommand implements CommandExecutor {
             Boolean playerBanned = banList.getBoolean("players." + offlinePlayer.getUniqueId());
             if (playerBanned) {
                 // Unban the player
-                banList.set("players." + offlinePlayer.getUniqueId(), false);
+                banList.set("players." + offlinePlayer.getUniqueId(), null);
                 try {
                     banList.save(banListFile);
                 } catch(IOException ex) {
@@ -111,7 +111,11 @@ public class ShadowBanCommand implements CommandExecutor {
             }
             return true;
          } else if (usage.equals("setmessage") || usage.equals("setmsg")) {
-            banList.set("config.ban-message", args[2]);
+            if (!ShadowBanMessages.getMessages().containsKey(args[1])) {
+                sender.sendMessage(String.format("%s: Invalid message! (got %s)", CHAT_PREFIX, args[2]));
+                return false;
+            }
+            banList.set("config.ban-message", args[1]);
 
             try {
                 banList.save(banListFile);
@@ -119,6 +123,8 @@ public class ShadowBanCommand implements CommandExecutor {
                 ShadowBan.getLogger().severe("An error occured when saving the config file:");
                 ex.printStackTrace();
             }
+
+            sender.sendMessage(String.format("%s: Successfully set message to %s!", CHAT_PREFIX, ShadowBanMessages.getMessages().get(args[1])));
             return true;
         }
         return false;
